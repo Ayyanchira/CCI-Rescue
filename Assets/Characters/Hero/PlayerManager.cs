@@ -43,7 +43,7 @@ public class PlayerManager : MonoBehaviour
         //Check for Run
         if (Input.GetKey(KeyCode.W))
         {
-            rb.AddForce(transform.forward * speed);
+            //rb.AddForce(transform.forward * speed);
             animator.SetBool("isRunning", true);
         }else{
             animator.SetBool("isRunning", false);
@@ -85,6 +85,13 @@ public class PlayerManager : MonoBehaviour
             animator.SetBool("isStrafingLeft", false);
         }
 
+        //if (Input.GetAxis("Mouse X") < 0){
+
+        //    transform.Rotate(Vector3.up * -speed); 
+        //}
+           
+        //if (Input.GetAxis("Mouse X") > 0)
+            //transform.Rotate(Vector3.up * speed);
 
     }
 }
