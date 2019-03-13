@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class EnemyMovement : MonoBehaviour
+public class PatrolMovement : MonoBehaviour
 {
 
     //[SerializeField] Transform destination;
@@ -80,7 +80,7 @@ public class EnemyMovement : MonoBehaviour
 
 
     // Update is called once per frame
-    public void Update()
+    public void Patrol()
     {
         if (travel && navMeshAgent.remainingDistance <= 1.0f)
         {

@@ -306,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eeacfc17ec4354d0cb3c05a2da1c97f5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.3620424
+      value: -6.03
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eeacfc17ec4354d0cb3c05a2da1c97f5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -314,7 +314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eeacfc17ec4354d0cb3c05a2da1c97f5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.18
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: eeacfc17ec4354d0cb3c05a2da1c97f5, type: 3}
       propertyPath: m_LocalRotation.x
@@ -454,6 +454,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 13ab4267111fc4044940cd776cfe422d, type: 2}
+    - target: {fileID: 9500000, guid: 3438a2845f1ed18458281ba0b3c1bc30, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3438a2845f1ed18458281ba0b3c1bc30, type: 3}
 --- !u!1 &681238810 stripped
@@ -476,9 +480,9 @@ NavMeshAgent:
   m_Acceleration: 4
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.7
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
@@ -499,6 +503,9 @@ MonoBehaviour:
   animator: {fileID: 681238813}
   player: {fileID: 2066967964}
   rb: {fileID: 681238814}
+  patrolWaiting: 0
+  totalWaitTime: 3
+  switchProbability: 0.2
 --- !u!95 &681238813 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 9500000, guid: 3438a2845f1ed18458281ba0b3c1bc30,
