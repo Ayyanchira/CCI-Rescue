@@ -11,7 +11,7 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     [SerializeField] Rigidbody rb;
 
     NavMeshAgent navMeshAgent;
-    private float detect = 10f;
+    private float detect = 15f;
     private float attack = 1.5f;
     private float speed = 1f;
 
