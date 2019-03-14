@@ -37,7 +37,7 @@ public class BatteryController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
-        if (other.gameObject.CompareTag("Pick Up"))
+        if (other.gameObject.CompareTag("Pickup"))
         {
             // Make the other game object (the pick up) inactive, to make it disappear
             other.gameObject.SetActive(false);
