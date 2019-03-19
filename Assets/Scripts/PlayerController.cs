@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float runMultiplier;
     private CharacterController character;
     private Vector3 movement;
+    [SerializeField] private float rotateSpeed;
     //static //animator //anim;
 
     // Use this for initialization
@@ -45,6 +46,8 @@ public class PlayerController : MonoBehaviour {
         //    /**/moveSpeed = 6.0f;
         //}
 
+        float horizontal = Input.GetAxis("Mouse X") * rotateSpeed;
+        transform.Rotate(0, horizontal, 0);
         //Move forward
         if (Input.GetKey(KeyCode.W))
         {
