@@ -47,12 +47,15 @@ public class CompleteCameraController : MonoBehaviour
             {
                 print("Aj is visible to me");
                 RaycastHit hit2;
-                this.offsetRuntime = offset;
+                //this.offsetRuntime = offset;
                 if (Physics.Raycast(transform.position, (transform.position - target.position), out hit2, 1)){
                     if (!hit2.transform){
                         print("And there is no wall behind me");
-
-                    }else{
+                        this.offsetRuntime = offset;
+                    }
+                    else{
+                        var calculatedOffset = new Vector3(offset.x, offset.y, offset.z - hit2.distance);
+                        this.offsetRuntime = offset;
                         print("And i am sensing a wall behind me");
                     }
                 }
