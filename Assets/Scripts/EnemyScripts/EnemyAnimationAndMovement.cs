@@ -11,7 +11,7 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     [SerializeField] Rigidbody rb;
 
     NavMeshAgent navMeshAgent;
-    private float detect = 15f;
+    private float detect = 5f;
     private float attack = 1.5f;
     private float speed = 1f;
 
@@ -57,7 +57,7 @@ public class EnemyAnimationAndMovement : MonoBehaviour
                         ConnectedWaypoints startingWaypoint = allWaypoints[random].GetComponent<ConnectedWaypoints>();
 
                         //i.e. we found a waypoint.
-                        if (startingWaypoint != null)
+                        if (startingWaypoint != null && Vector3.Distance(startingWaypoint.transform.position, transform.position) <= startingWaypoint.connectivityRadius)
                         {
                             _currentWaypoint = startingWaypoint;
                         }
@@ -76,48 +76,79 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(player.position, transform.position) <= detect)
-        {
-            patrol = false;
-            Vector3 target = player.transform.position - transform.position;
-            if(target.magnitude <= attack)
-            {
-                rb.velocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-                animator.SetBool("isAttacking", true);
-                animator.SetBool("isWalking", false);
+        RaycastHit hit;
+        Debug.DrawLine(transform.position, transform.forward, Color.red);
+        //if (Physics.Raycast(new Ray(transform.position, transform.forward), out hit, 1f)){
+        //    Debug.DrawLine(transform.position, hit.point, Color.red);
+        //    if (hit.collider.tag == "Player")
+        //    {
+                if (Vector3.Distance(player.position, transform.position) <= detect)
+                {
+                    patrol = false;
+                    Vector3 target = player.transform.position - transform.position;
+                    if (target.magnitude <= attack)
+                    {
+                        rb.velocity = Vector3.zero;
+                        rb.angularVelocity = Vector3.zero;
+                        animator.SetBool("isAttacking", true);
+                        animator.SetBool("isWalking", false);
+
+                    }
+                    else
+                    {
+                        //target.Normalize();
+                        //target *= speed;
+                        //rb.velocity = target;
+                        //this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(target), 0.1f);
+                        SetDestination(player.transform.position);
+                        animator.SetBool("isWalking", true);
+                        animator.SetBool("isAttacking", false);
+
+                    }
+
+                }
+                else
+                {
+                    patrol = true;
+                    animator.SetBool("isWalking", true);
+
+                }
                 
-            }
-            else
-            {
-                //target.Normalize();
-                //target *= speed;
-                //rb.velocity = target;
-                //this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(target), 0.1f);
-                SetDestination(player.transform.position);
-                animator.SetBool("isWalking", true);
-                animator.SetBool("isAttacking", false);
+                if (patrol)
+                {
+                    TravelPatrolPoints();
+                }
 
-            }
-            
-        }
-        else
-        {
-            patrol = true;
-            animator.SetBool("isWalking", true);
-
-        }
-        if (patrol)
-        {
-            TravelPatrolPoints();
-        }
-        
     }
+        //    else
+        //    {
+        //        patrol = true;
+        //        animator.SetBool("isWalking", true);
+
+        //    }
+        //    if (patrol)
+        //    {
+        //        TravelPatrolPoints();
+        //    }
+
+        //}
+        //else{
+        //    patrol = true;
+        //    animator.SetBool("isWalking", true);
+
+        //}
+        //if (patrol)
+        //{
+        //    TravelPatrolPoints();
+        //}
+
+
+    //}
 
     private void TravelPatrolPoints()
     {
 
-        if (travel && navMeshAgent.remainingDistance <= 1.0f)
+        if (travel && navMeshAgent.remainingDistance <= 1.3f)
         {
             travel = false;
             _waypointsVisited++;
@@ -158,7 +189,7 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     {
         if (_waypointsVisited > 0)
         {
-            ConnectedWaypoints nextWaypoint = _currentWaypoint.NextWayPoint(_previousWaypoint);
+            ConnectedWaypoints nextWaypoint = _currentWaypoint.NextWayPoint(_previousWaypoint, gameObject);
             _previousWaypoint = _currentWaypoint;
             _currentWaypoint = nextWaypoint;
         }
@@ -166,5 +197,16 @@ public class EnemyAnimationAndMovement : MonoBehaviour
         Vector3 targetVector = _currentWaypoint.transform.position;
         navMeshAgent.SetDestination(targetVector);
         travel = true;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        // If the entering collider is the player...
+        if (other.gameObject.transform == player)
+        {
+            //attack the player
+            Debug.Log("Inside Player");
+            other.gameObject.GetComponent<PlayerController>().KillPlayer();
+        }
     }
 }

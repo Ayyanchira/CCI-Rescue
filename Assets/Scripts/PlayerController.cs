@@ -107,6 +107,11 @@ public class PlayerController : MonoBehaviour {
             //anim.SetBool("runRight", false);
         }
     }
+
+    public void KillPlayer()
+    {
+        Debug.Log("Player Killed");
+    }
 }
 
 // 2. Sword push enemies

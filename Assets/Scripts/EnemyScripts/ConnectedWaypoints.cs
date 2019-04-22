@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConnectedWaypoints : Waypoints
 {
-    [SerializeField] protected float connectivityRadius = 50f;
+    [SerializeField] public float connectivityRadius = 50f;
     List<ConnectedWaypoints> connection;
 
     public void Start()
@@ -28,7 +28,7 @@ public class ConnectedWaypoints : Waypoints
     }
 
 
-    public ConnectedWaypoints NextWayPoint(ConnectedWaypoints previous)
+    public ConnectedWaypoints NextWayPoint(ConnectedWaypoints previous, GameObject enemy)
     {
         if(connection.Count == 0)
         {
@@ -41,13 +41,27 @@ public class ConnectedWaypoints : Waypoints
         }
         else
         {
-            ConnectedWaypoints next;
+            ConnectedWaypoints next = null;
             int index = 0;
 
             do
             {
                 index = UnityEngine.Random.Range(0, connection.Count);
-                next = connection[index];
+                int i = 0;
+                while(index < connection.Count)
+                {
+                    if(Vector3.Distance(connection[index].transform.position, enemy.transform.position) <= connectivityRadius)
+                    {
+                        next = connection[index];
+                        break;
+                    }
+                    else
+                    {
+                        int temp = UnityEngine.Random.Range(0, connection.Count);
+                        index = (temp == index) ? UnityEngine.Random.Range(0, connection.Count) : temp ;
+                    }
+                    i++;
+                }   
             } while (next == previous);
 
             return next;

@@ -68,7 +68,7 @@ public class PatrolMovement : MonoBehaviour
     {
         if (_waypointsVisited > 0)
         {
-            ConnectedWaypoints nextWaypoint = _currentWaypoint.NextWayPoint(_previousWaypoint);
+            ConnectedWaypoints nextWaypoint = _currentWaypoint.NextWayPoint(_previousWaypoint, gameObject);
             _previousWaypoint = _currentWaypoint;
             _currentWaypoint = nextWaypoint;
         }

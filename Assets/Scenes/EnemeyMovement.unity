@@ -1054,6 +1054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   runMultiplier: 2
+  rotateSpeed: 0
 --- !u!4 &2066967964 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: eeacfc17ec4354d0cb3c05a2da1c97f5,
