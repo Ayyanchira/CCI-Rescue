@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private float runMultiplier;
-    private CharacterController character;
+    //private CharacterController character;
     private Vector3 movement;
     [SerializeField] private float rotateSpeed;
     //static //animator //anim;
@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        character = GetComponent<CharacterController>();
+        //character = GetComponent<CharacterController>();
         //anim = GetComponent<//animator>();
     }
 	
@@ -54,13 +54,13 @@ public class PlayerController : MonoBehaviour {
             ////anim.SetBool("isRunning", true);
             movement = (transform.forward * Input.GetAxis("Vertical"));
             movement = movement.normalized * moveSpeed;
-            character.Move(movement * Time.deltaTime);
+            //character.Move(movement * Time.deltaTime);
             if(Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 ////anim.SetBool("isRunning", true);
                 movement = (transform.forward * Input.GetAxis("Vertical"));
                 movement = movement.normalized * (moveSpeed * runMultiplier);
-                character.Move(movement * Time.deltaTime);
+                //character.Move(movement * Time.deltaTime);
             }
         }
         else
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour {
             //anim.SetBool("runBack", true);
             movement = (transform.forward * Input.GetAxis("Vertical"));
             movement = movement.normalized * moveSpeed;
-            character.Move(movement * Time.deltaTime);
+            //character.Move(movement * Time.deltaTime);
         }
         else
         {
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour {
             //anim.SetBool("runLeft", true);
             movement = (transform.right * Input.GetAxis("Horizontal"));
             movement = movement.normalized * moveSpeed;
-            character.Move(movement * Time.deltaTime);
+            //character.Move(movement * Time.deltaTime);
         }
         else
         {
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour {
             //anim.SetBool("runRight", true);
             movement = (transform.right * Input.GetAxis("Horizontal"));
             movement = movement.normalized * moveSpeed;
-            character.Move(movement * Time.deltaTime);
+            //character.Move(movement * Time.deltaTime);
         }
         else
         {
