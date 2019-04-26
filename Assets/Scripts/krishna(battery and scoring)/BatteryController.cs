@@ -12,14 +12,14 @@ public class BatteryController : MonoBehaviour
 
     public Text countText;
     public Text winText;
-
+    Collider
 
     private int count;
 
     // At the start of the game..
     void Start()
     {
-
+        
 
         // Set the count to zero
         count = 0;
@@ -39,6 +39,7 @@ public class BatteryController : MonoBehaviour
         // ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
         if (other.gameObject.CompareTag("Pickup"))
         {
+            print("I picked up a battery");
             // Make the other game object (the pick up) inactive, to make it disappear
             other.gameObject.SetActive(false);
 
