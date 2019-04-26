@@ -111,6 +111,8 @@ public class PlayerController : MonoBehaviour {
     public void KillPlayer()
     {
         Debug.Log("Player Killed");
+        //anim.SetBool("isAlive", true);
+        gameObject.GetComponent<PlayerManager>().KillAnimation();
     }
 }
 

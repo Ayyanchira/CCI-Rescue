@@ -7,12 +7,12 @@ using UnityEngine.AI;
 public class EnemyAnimationAndMovement : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    [SerializeField] Transform player;
+    [SerializeField]private GameObject player;
     [SerializeField] Rigidbody rb;
 
     NavMeshAgent navMeshAgent;
-    private float detect = 5f;
-    private float attack = 1.5f;
+    private float detect = 20f;
+    private float attack = 1.3f;
     private float speed = 1f;
 
     private static PatrolMovement p;
@@ -38,6 +38,7 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     void Start()
     {
         navMeshAgent = this.GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player");
 
         if (navMeshAgent == null)
         {
@@ -76,13 +77,12 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit hit;
-        Debug.DrawLine(transform.position, transform.forward, Color.red);
+
         //if (Physics.Raycast(new Ray(transform.position, transform.forward), out hit, 1f)){
         //    Debug.DrawLine(transform.position, hit.point, Color.red);
         //    if (hit.collider.tag == "Player")
         //    {
-                if (Vector3.Distance(player.position, transform.position) <= detect)
+                if (Vector3.Distance(player.transform.position, transform.position) <= detect)
                 {
                     patrol = false;
                     Vector3 target = player.transform.position - transform.position;
@@ -202,7 +202,7 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // If the entering collider is the player...
-        if (other.gameObject.transform == player)
+        if (other.gameObject == player)
         {
             //attack the player
             Debug.Log("Inside Player");

@@ -94,4 +94,12 @@ public class PlayerManager : MonoBehaviour
             //transform.Rotate(Vector3.up * speed);
 
     }
+
+    public void KillAnimation()
+    {
+        animator.SetBool("isDead", true);
+        //gameObject.transform.position = new Vector3(gameObject.transform.position.x, -0.5f, gameObject.transform.position.z);
+        Destroy(gameObject,2f);
+        //Call menu method
+    }
 }
