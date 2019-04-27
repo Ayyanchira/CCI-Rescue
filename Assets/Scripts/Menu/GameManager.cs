@@ -2,10 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
     public static GameState CurrentGameState;
+    [SerializeField] GameObject GUI;
+
+    public void Awake()
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Game Manager");
+        if (objs.Length > 1)
+        {
+            Destroy(this.gameObject);
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     // Start is called before the first frame update
 
     void Start()
@@ -16,7 +30,25 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForEscKey();   
+        CheckForEscKey();
+        switch (GameManager.CurrentGameState)
+        {
+            case GameState.MainMenu:
+                GUI.GetComponent<GUIManager>().ShowMainMenu();
+                break;
+            case GameState.Settings:
+                GUI.GetComponent<GUIManager>().ShowSettingPage();
+                break;
+            case GameState.Playing:
+                SceneManager.LoadScene("Level1");
+                break;
+            case GameState.Paused:
+                if(SceneManager.GetActiveScene().name == "Level1")
+                {
+                    Debug.Log("Level1");
+                }
+                break;
+        }
     }
 
     private void CheckForEscKey()
@@ -29,6 +61,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(){
         CurrentGameState = GameState.Playing;
+        
     }
 
     public void EscButtonPressed()

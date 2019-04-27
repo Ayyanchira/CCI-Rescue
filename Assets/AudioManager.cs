@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -8,9 +9,24 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource InGameAudio, MainMenuAudio, PlayerWinAudio, PlayerDieAudio, BatteryCollectAudio, ButtonSelectAudio;
     public bool isMute = false;
 
+    public void Awake()
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Music");
+        if (objs.Length > 1)
+        {
+            Destroy(this.gameObject);
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     void Start()
     {
-        MainMenuAudio.Play();
+        if(SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "Level2")
+        {
+            InGameAudio.Play();
+        }
+        else
+            MainMenuAudio.Play();
     }
 
     // Update is called once per frame
@@ -96,5 +112,5 @@ public class AudioManager : MonoBehaviour
 
 public enum GameState
 {
-    MainMenu, Settings, Playing, Paused
+    MainMenu, Settings, Playing, Paused, Quit
 };

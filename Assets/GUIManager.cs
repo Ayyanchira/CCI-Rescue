@@ -20,6 +20,7 @@ public class GUIManager : MonoBehaviour
     public void ShowSettingPage(){
         MainMenuItems.SetActive(false);
         SettingPage.SetActive(true);
+        GameManager.CurrentGameState = GameState.Settings;
     }
 
     public void showControls(){
@@ -31,7 +32,12 @@ public class GUIManager : MonoBehaviour
         //ControlsPage.SetActive(false);
         SettingPage.SetActive(false);
         MainMenuItems.SetActive(true);
+        GameManager.CurrentGameState = GameState.MainMenu;
     }
 
-    
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
 }
