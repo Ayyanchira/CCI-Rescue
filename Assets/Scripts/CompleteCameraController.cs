@@ -14,7 +14,7 @@ public class CompleteCameraController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame

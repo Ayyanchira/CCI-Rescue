@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
                 GUI.GetComponent<GUIManager>().ShowSettingPage();
                 break;
             case GameState.Playing:
-                SceneManager.LoadScene("Level1");
+                StartGame();
                 break;
             case GameState.Paused:
                 if(SceneManager.GetActiveScene().name == "Level1")
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(){
         CurrentGameState = GameState.Playing;
-        
+        SceneManager.LoadScene("Level1");
     }
 
     public void EscButtonPressed()
