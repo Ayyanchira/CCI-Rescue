@@ -40,8 +40,8 @@ public class CompleteCameraController : MonoBehaviour
             if (hit.transform.name != "aj")
             {
                 // In Range and i can see you!
-                print("Going blind");
-                this.offsetRuntime = target.position - hit.point;
+                //print("Going blind");
+                //this.offsetRuntime = target.position - hit.point;
             }
             else
             {
