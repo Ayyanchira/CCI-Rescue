@@ -61,7 +61,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(){
         CurrentGameState = GameState.Playing;
-        SceneManager.LoadScene("Level1");
+        if(SceneManager.GetActiveScene().name == "Menu")
+            SceneManager.LoadScene("Level1");   
     }
 
     public void EscButtonPressed()
