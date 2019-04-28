@@ -205,8 +205,24 @@ public class EnemyAnimationAndMovement : MonoBehaviour
         if (other.gameObject == player)
         {
             //attack the player
-            Debug.Log("Inside Player");
-            other.gameObject.GetComponent<PlayerController>().KillPlayer();
+            StartCoroutine(OnCompleteAttackAnimation(other));
+            
         }
+    }
+
+    IEnumerator OnCompleteAttackAnimation(Collider player)
+    {
+        AnimatorClipInfo[] a = animator.GetCurrentAnimatorClipInfo(0);
+        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < a[0].clip.length)
+            yield return null;
+
+        // TODO: Do something when animation did complete
+        Debug.Log("Inside Player");
+        player.gameObject.GetComponent<PlayerController>().KillPlayer();
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isWalking", true);
+        patrol = true;
+
     }
 }

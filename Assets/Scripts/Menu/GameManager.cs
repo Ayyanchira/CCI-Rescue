@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameState CurrentGameState;
-    [SerializeField] GameObject GUI;
+    private GameObject GUI;
 
     public void Awake()
     {
@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CurrentGameState = GameState.MainMenu;
+        GUI = GameObject.Find("GUI");
     }
 
     // Update is called once per frame
