@@ -16,7 +16,7 @@ public class BatteryController : MonoBehaviour
     private int count;
 
 
-    public float m_count = 100f;
+    public float m_count = 5f;
     public Slider m_Slider;
     public Image m_FillImage;
     public Color m_FullBattery = Color.green;
@@ -76,6 +76,8 @@ public class BatteryController : MonoBehaviour
     {
         // Adjust the value and colour of the slider.
         m_Slider.value = count;
+
+        print("Count " + count);
 
         m_FillImage.color = Color.Lerp(m_ZeroBattery, m_FullBattery, count / m_count);
 

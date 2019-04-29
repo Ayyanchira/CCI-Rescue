@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,8 @@ public class PlayerManager : MonoBehaviour
     public Rigidbody rb;
 
     public float speed;
+    [SerializeField] public TextMeshProUGUI life;
+
     // Start is called before the first frame update
 
     private void Awake()
@@ -35,6 +38,7 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         CheckInput();
+        life.text = "x " + PlayerController.lives;
     }
 
     private void CheckInput()
@@ -99,12 +103,14 @@ public class PlayerManager : MonoBehaviour
     public void KillAnimation()
     {
         animator.SetBool("isDead", true);
-        StartCoroutine(OnCompletedDeathAnimation());
+        //StartCoroutine(OnCompletedDeathAnimation());
         //Call menu method
 
-        Destroy(gameObject, 2.3f);
+        Destroy(gameObject);
         PlayerController.lives--;
-        if (PlayerController.lives > 0)
+        life.text = "x " + PlayerController.lives;
+        print("Lives " + PlayerController.lives);
+        if (PlayerController.lives >= 0)
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         else
             SceneManager.LoadScene("Menu");
@@ -118,13 +124,14 @@ public class PlayerManager : MonoBehaviour
             yield return new WaitForSeconds(a[0].clip.length - animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
 
         // TODO: Do something when animation did complete
-        Destroy(gameObject);
-        PlayerController.lives--;
-        if (PlayerController.lives > 0)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        else
-            SceneManager.LoadScene("Menu");
-            //GameManager.CurrentGameState = GameState.MainMenu;
+        //Destroy(gameObject);
+        //PlayerController.lives--;
+        //print("Lives " + PlayerController.lives);
+        //if (PlayerController.lives >= 0)
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //else
+        //    SceneManager.LoadScene("Menu");
+        //    //GameManager.CurrentGameState = GameState.MainMenu;
 
     }
 }
