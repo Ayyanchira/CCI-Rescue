@@ -13,7 +13,8 @@ public class BatteryController : MonoBehaviour
     public Text countText;
     public Text winText;
     
-    private int count;
+    public int count;
+    [SerializeField] public GameObject portal;
 
 
     public float m_count = 5f;
@@ -25,8 +26,8 @@ public class BatteryController : MonoBehaviour
     // At the start of the game..
     void Start()
     {
-        
 
+       // portal = GameObject.Find("Portals");
         // Set the count to zero
         count = 0;
 
@@ -68,7 +69,9 @@ public class BatteryController : MonoBehaviour
         if (count >= m_count)
         {
             // Set the text value of our 'winText'
-            winText.text = "You Win!";
+            //winText.text = "You Win!";
+            portal.SetActive(true);
+            print("Portal activated");
         }
     }
 
