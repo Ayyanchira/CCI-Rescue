@@ -23,7 +23,10 @@ public class Portal : MonoBehaviour
         {
             if(other.GetComponent<BatteryController>().count == other.GetComponent<BatteryController>().m_count)
             {
-                SceneManager.LoadScene("Level2");
+                if (SceneManager.GetActiveScene().name == "Level1")
+                    SceneManager.LoadScene("Level2");
+                else
+                    Application.Quit();
             }
         }
     }
