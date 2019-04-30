@@ -1442,7 +1442,7 @@ MonoBehaviour:
   countText: {fileID: 1374205936}
   winText: {fileID: 1598444445}
   count: 0
-  portal: {fileID: 4265929932874634655, guid: a716ee035af0e074fbf573ab62e2b399, type: 3}
+  portal: {fileID: 0}
   m_count: 5
   m_Slider: {fileID: 1441276229}
   m_FillImage: {fileID: 473234740}

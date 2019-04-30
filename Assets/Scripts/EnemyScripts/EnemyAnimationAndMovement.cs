@@ -13,7 +13,7 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     NavMeshAgent navMeshAgent;
     private float detect = 20f;
     private float attack = 1.3f;
-    private float speed = 1f;
+    private float speed = 3f;
 
     private static PatrolMovement p;
 
@@ -39,7 +39,7 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     {
         navMeshAgent = this.GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
-
+        animator.speed *= speed;
         if (navMeshAgent == null)
         {
             Debug.LogError("The nav mesh agent component is not attached to " + gameObject.name);

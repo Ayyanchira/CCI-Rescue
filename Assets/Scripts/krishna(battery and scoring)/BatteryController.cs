@@ -26,11 +26,11 @@ public class BatteryController : MonoBehaviour
     // At the start of the game..
     void Start()
     {
-
-       // portal = GameObject.Find("Portals");
+        //if(SceneManager.GetActiveScene().name == "Level2")
+        //    portal = GameObject.Find("PortalActivation");
         // Set the count to zero
         count = 0;
-
+        m_Slider.value = 0;
         // Run the SetCountText function to update the UI (see below)
         SetCountText();
 

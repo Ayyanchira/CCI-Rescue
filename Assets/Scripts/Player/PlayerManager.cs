@@ -23,9 +23,13 @@ public class PlayerManager : MonoBehaviour
         if(instance == null){
             instance = this;
             DontDestroyOnLoad(gameObject);
+           
         }else{
+            instance = this;
             Destroy(gameObject);
         }
+        if (SceneManager.GetActiveScene().name == "Level2")
+            instance.gameObject.transform.position = new Vector3(38.71f, -0.2f, 4.63f);
     }
 
 
