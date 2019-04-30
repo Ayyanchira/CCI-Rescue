@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -32,7 +33,11 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        CheckIfGameIsPaused();
+    }
+
+    private void CheckIfGameIsPaused()
+    {
     }
 
     void PlayAutomatic(){
@@ -99,13 +104,13 @@ public class AudioManager : MonoBehaviour
     }
 
     public void SetMute(bool muteStatus){
-        isMute = muteStatus;
-        InGameAudio.mute = muteStatus;
-        MainMenuAudio.mute = muteStatus;
-        PlayerWinAudio.mute = muteStatus;
-        PlayerDieAudio.mute = muteStatus;
-        BatteryCollectAudio.mute = muteStatus;
-        ButtonSelectAudio.mute = muteStatus;
+
+        InGameAudio.mute = !InGameAudio.mute;
+        MainMenuAudio.mute = !InGameAudio.mute;
+        PlayerWinAudio.mute = !InGameAudio.mute;
+        PlayerDieAudio.mute = !InGameAudio.mute;
+        BatteryCollectAudio.mute = !InGameAudio.mute;
+        ButtonSelectAudio.mute = !InGameAudio.mute;
 
     }
 }
