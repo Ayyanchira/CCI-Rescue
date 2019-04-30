@@ -33,44 +33,42 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckIfGameIsPaused();
-    }
-
-    private void CheckIfGameIsPaused()
-    {
-    }
-
-    void PlayAutomatic(){
-
-            switch (GameManager.CurrentGameState)
-            {
-                case GameState.MainMenu:
-                    {
-                        PauseAll();
-                        MainMenuAudio.Play();
-                        break;
-                    }
-                case GameState.Paused:
-                    {
-                        PauseAll();
-                        MainMenuAudio.Play();
-                        break;
-                    }
-                case GameState.Playing:
-                    {
-                        PauseAll();
-                        InGameAudio.Play();
-                        break;
-                    }
-                case GameState.Settings:
-                    {
-                        MainMenuAudio.Play();
-                        break;
-                    }
-
-            }
 
     }
+
+   
+
+    //void PlayAutomatic(){
+
+    //        switch (GameManager.CurrentGameState)
+    //        {
+    //            case GameState.MainMenu:
+    //                {
+    //                    PauseAll();
+    //                    MainMenuAudio.Play();
+    //                    break;
+    //                }
+    //            case GameState.Paused:
+    //                {
+    //                    PauseAll();
+    //                    MainMenuAudio.Play();
+    //                    break;
+    //                }
+    //            case GameState.Playing:
+    //                {
+    //                    PauseAll();
+    //                    InGameAudio.Play();
+    //                    break;
+    //                }
+    //            case GameState.Settings:
+    //                {
+    //                    MainMenuAudio.Play();
+    //                    break;
+    //                }
+
+    //        }
+
+    //}
 
     public void StartGame()
     {

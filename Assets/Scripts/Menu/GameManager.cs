@@ -26,12 +26,18 @@ public class GameManager : MonoBehaviour
     {
         CurrentGameState = GameState.MainMenu;
         GUI = GameObject.Find("GUI");
+        LoadGame();
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckForEscKey();
+
+    }
+
+    private void LoadGame()
+    {
         switch (GameManager.CurrentGameState)
         {
             case GameState.MainMenu:
@@ -44,7 +50,7 @@ public class GameManager : MonoBehaviour
                 StartGame();
                 break;
             case GameState.Paused:
-                if(SceneManager.GetActiveScene().name == "Level1")
+                if (SceneManager.GetActiveScene().name == "Level1")
                 {
                     Debug.Log("Level1");
                 }
@@ -52,13 +58,52 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void PlayGame(){
+
+        StartGame();
+
+    }
+
     private void CheckForEscKey()
     {
         if(Input.GetKey(KeyCode.Escape)){
-            CurrentGameState = GameState.Paused;
+            if (GUI == null)
+            {
+                print("GUI component not found...");
+                return;
+            }
+            GUIManager guiManager = GUI.GetComponent<GUIManager>();
+
+            if (CurrentGameState == GameState.Playing)
+            {
+                //Pause the game
+                PauseGame();
+                guiManager.ShowPauseMenu();
+
+            }
+            else
+            {
+                ResumeGame();
+                guiManager.ResumeGame();
+            }
+
+
+
         }
     }
 
+    public void ResumeGame()
+    {
+        CurrentGameState = GameState.Playing;
+        Time.timeScale = 1.0f;
+        GUI.GetComponent<GUIManager>().ResumeGame();
+    }
+
+    public static void PauseGame()
+    {
+        CurrentGameState = GameState.Paused;
+        Time.timeScale = 0.0f;
+    }
 
     public void StartGame(){
         CurrentGameState = GameState.Playing;
@@ -66,14 +111,14 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Level1");   
     }
 
-    public void EscButtonPressed()
-    {
-        CurrentGameState = GameState.Paused;
-    }
+    //public void EscButtonPressed()
+    //{
+    //    CurrentGameState = GameState.Paused;
+    //}
 
-    public void ResumeGame(){
-        CurrentGameState = GameState.Playing;
-    }
+    //public void ResumeGame(){
+    //    CurrentGameState = GameState.Playing;
+    //}
 
 
 
