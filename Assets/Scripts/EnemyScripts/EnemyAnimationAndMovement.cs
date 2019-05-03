@@ -12,7 +12,7 @@ public class EnemyAnimationAndMovement : MonoBehaviour
 
     NavMeshAgent navMeshAgent;
     private float detect = 20f;
-    private float attack = 1.3f;
+    private float attack = 1.4f;
     private float speed = 3f;
 
     private static PatrolMovement p;
@@ -34,11 +34,21 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     bool patrolForward;
     float waitTimer;
 
+    private bool isAlive;
+
     // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = this.GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            isAlive = true;
+        }
+        else
+        {
+            isAlive = false;
+        }
         animator.speed *= speed;
         if (navMeshAgent == null)
         {
@@ -77,48 +87,62 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //if (player == null)
+        //{
+        //    player = GameObject.FindGameObjectWithTag("Player");
+        //    player = GameObject.Find("aj");
+        //}
         //if (Physics.Raycast(new Ray(transform.position, transform.forward), out hit, 1f)){
         //    Debug.DrawLine(transform.position, hit.point, Color.red);
         //    if (hit.collider.tag == "Player")
         //    {
-                if (Vector3.Distance(player.transform.position, transform.position) <= detect)
+        if (player != null)
+        {
+            isAlive = true;
+        }
+        else
+        {
+            isAlive = false;
+        }
+        if (isAlive)
+        {
+            if (Vector3.Distance(player.transform.position, transform.position) <= detect)
+            {
+                patrol = false;
+                Vector3 target = player.transform.position - transform.position;
+                if (target.magnitude <= attack)
                 {
-                    patrol = false;
-                    Vector3 target = player.transform.position - transform.position;
-                    if (target.magnitude <= attack)
-                    {
-                        rb.velocity = Vector3.zero;
-                        rb.angularVelocity = Vector3.zero;
-                        animator.SetBool("isAttacking", true);
-                        animator.SetBool("isWalking", false);
-
-                    }
-                    else
-                    {
-                        //target.Normalize();
-                        //target *= speed;
-                        //rb.velocity = target;
-                        //this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(target), 0.1f);
-                        SetDestination(player.transform.position);
-                        animator.SetBool("isWalking", true);
-                        animator.SetBool("isAttacking", false);
-
-                    }
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                    animator.SetBool("isAttacking", true);
+                    animator.SetBool("isWalking", false);
 
                 }
                 else
                 {
-                    patrol = true;
+                    //target.Normalize();
+                    //target *= speed;
+                    //rb.velocity = target;
+                    //this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(target), 0.1f);
+                    SetDestination(player.transform.position);
                     animator.SetBool("isWalking", true);
+                    animator.SetBool("isAttacking", false);
 
                 }
-                
-                if (patrol)
-                {
-                    TravelPatrolPoints();
-                }
 
+            }
+            else
+            {
+                patrol = true;
+                animator.SetBool("isWalking", true);
+
+            }
+
+            if (patrol)
+            {
+                TravelPatrolPoints();
+            }
+        }
     }
         //    else
         //    {
@@ -214,15 +238,18 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     {
         AnimatorClipInfo[] a = animator.GetCurrentAnimatorClipInfo(0);
         Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
-        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < a[0].clip.length)
-            yield return null;
+  //      if (a[0].clip.name == "Zombie Attack") { 
+            while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < a[0].clip.length)
+                yield return null;
 
-        // TODO: Do something when animation did complete
-        Debug.Log("Inside Player");
-        player.gameObject.GetComponent<PlayerController>().KillPlayer();
-        animator.SetBool("isAttacking", false);
-        animator.SetBool("isWalking", true);
-        patrol = true;
+            // TODO: Do something when animation did complete
+            Debug.Log("Inside Player");
+            player.gameObject.GetComponent<PlayerController>().KillPlayer();
+            animator.SetBool("isAttacking", false);
+            animator.SetBool("isWalking", true);
+            patrol = true;
+            isAlive = false;
+  //      }
 
     }
 }

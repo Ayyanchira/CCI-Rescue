@@ -33,7 +33,7 @@ public class BatteryController : MonoBehaviour
         m_Slider.value = 0;
         // Run the SetCountText function to update the UI (see below)
         SetCountText();
-
+        winText.text = "";
         // Set the text property of our Win Text UI to an empty string, making the 'You Win' (game over message) blank
         winText.text = "";
     }
@@ -69,7 +69,7 @@ public class BatteryController : MonoBehaviour
         if (count >= m_count)
         {
             // Set the text value of our 'winText'
-            //winText.text = "You Win!";
+            winText.text = "Portal Activated";
             portal.SetActive(true);
             print("Portal activated");
         }

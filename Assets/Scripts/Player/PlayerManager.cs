@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
 
     public float speed;
     [SerializeField] public TextMeshProUGUI life;
+    public static bool isAlive;
 
     // Start is called before the first frame update
 
@@ -25,11 +26,13 @@ public class PlayerManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
            
         }else{
-            instance = this;
+            instance = this;                    //yeh nahi hona chahiye tha but isse proper jagah me aa raha h camera b assign ho raha tha
             Destroy(gameObject);
         }
         if (SceneManager.GetActiveScene().name == "Level2")
             instance.gameObject.transform.position = new Vector3(38.71f, -0.2f, 4.63f);
+        isAlive = true;
+        
     }
 
 
@@ -118,6 +121,7 @@ public class PlayerManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         else
             SceneManager.LoadScene("Menu");
+        isAlive = false;
         //GameManager.CurrentGameState = GameState.MainMenu;
     }
 
