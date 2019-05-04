@@ -284,7 +284,7 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     IEnumerator StopTime()
     {
         print(Time.time);
-        if(Time.time <15)
+        if(Time.time < 30)
             yield return new WaitForSeconds(5);
         print(Time.time);
 
