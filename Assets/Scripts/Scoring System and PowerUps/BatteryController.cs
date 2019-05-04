@@ -17,7 +17,7 @@ public class BatteryController : MonoBehaviour
     [SerializeField] public GameObject portal;
 
 
-    public float m_count = 5f;
+    public float m_count = 10f;
     public Slider m_Slider;
     public Image m_FillImage;
     public Color m_FullBattery = Color.green;

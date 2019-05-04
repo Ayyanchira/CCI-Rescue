@@ -650,7 +650,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 5
+  m_MaxValue: 10
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -788,7 +788,7 @@ GameObject:
   - component: {fileID: 1861391003}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: AJCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1303,6 +1303,7 @@ GameObject:
   - component: {fileID: 2306424298927754845}
   - component: {fileID: 2306424298927754849}
   - component: {fileID: 2306424298927754851}
+  - component: {fileID: 988298333}
   m_Layer: 0
   m_Name: aj
   m_TagString: Player
@@ -1443,11 +1444,23 @@ MonoBehaviour:
   winText: {fileID: 1598444445}
   count: 0
   portal: {fileID: 0}
-  m_count: 5
+  m_count: 10
   m_Slider: {fileID: 1441276229}
   m_FillImage: {fileID: 473234740}
   m_FullBattery: {r: 0, g: 1, b: 0, a: 1}
   m_ZeroBattery: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &988298333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2306424298927754844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deeff1960d88db743a4e41ab88f47f41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2306424298940314335
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ TagManager:
   - Music
   - Game Manager
   - AJCanvas
+  - PowerUp
+  - Enemy
   layers:
   - Default
   - TransparentFX

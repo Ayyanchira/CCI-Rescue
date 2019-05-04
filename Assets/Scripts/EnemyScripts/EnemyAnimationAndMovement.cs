@@ -35,6 +35,8 @@ public class EnemyAnimationAndMovement : MonoBehaviour
     float waitTimer;
 
     private bool isAlive;
+    private bool isWalking;
+    private bool isAttacking;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +52,9 @@ public class EnemyAnimationAndMovement : MonoBehaviour
             isAlive = false;
         }
         animator.speed *= speed;
+
+        isWalking = true;
+        isAttacking = false;
         if (navMeshAgent == null)
         {
             Debug.LogError("The nav mesh agent component is not attached to " + gameObject.name);
@@ -104,7 +109,7 @@ public class EnemyAnimationAndMovement : MonoBehaviour
         {
             isAlive = false;
         }
-        if (isAlive)
+        if (isAlive && (isWalking || isAttacking))
         {
             if (Vector3.Distance(player.transform.position, transform.position) <= detect)
             {
@@ -114,8 +119,11 @@ public class EnemyAnimationAndMovement : MonoBehaviour
                 {
                     rb.velocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;
-                    animator.SetBool("isAttacking", true);
-                    animator.SetBool("isWalking", false);
+                    isWalking = false;
+                    isAttacking = true;
+
+                    //animator.SetBool("isAttacking", true);
+                    //animator.SetBool("isWalking", false);
 
                 }
                 else
@@ -125,8 +133,10 @@ public class EnemyAnimationAndMovement : MonoBehaviour
                     //rb.velocity = target;
                     //this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(target), 0.1f);
                     SetDestination(player.transform.position);
-                    animator.SetBool("isWalking", true);
-                    animator.SetBool("isAttacking", false);
+                    isWalking = true;
+                    isAttacking = false;
+                    //animator.SetBool("isWalking", true);
+                    //animator.SetBool("isAttacking", false);
 
                 }
 
@@ -134,7 +144,9 @@ public class EnemyAnimationAndMovement : MonoBehaviour
             else
             {
                 patrol = true;
-                animator.SetBool("isWalking", true);
+                isWalking = true;
+                isAttacking = false;
+                //animator.SetBool("isWalking", true);
 
             }
 
@@ -143,28 +155,34 @@ public class EnemyAnimationAndMovement : MonoBehaviour
                 TravelPatrolPoints();
             }
         }
+        else
+        {
+            StartCoroutine(StopTime());
+        }
+        animator.SetBool("isWalking", isWalking);
+        animator.SetBool("isAttacking", isAttacking);
     }
-        //    else
-        //    {
-        //        patrol = true;
-        //        animator.SetBool("isWalking", true);
+    //    else
+    //    {
+    //        patrol = true;
+    //        animator.SetBool("isWalking", true);
 
-        //    }
-        //    if (patrol)
-        //    {
-        //        TravelPatrolPoints();
-        //    }
+    //    }
+    //    if (patrol)
+    //    {
+    //        TravelPatrolPoints();
+    //    }
 
-        //}
-        //else{
-        //    patrol = true;
-        //    animator.SetBool("isWalking", true);
+    //}
+    //else{
+    //    patrol = true;
+    //    animator.SetBool("isWalking", true);
 
-        //}
-        //if (patrol)
-        //{
-        //    TravelPatrolPoints();
-        //}
+    //}
+    //if (patrol)
+    //{
+    //    TravelPatrolPoints();
+    //}
 
 
     //}
@@ -251,5 +269,27 @@ public class EnemyAnimationAndMovement : MonoBehaviour
             isAlive = false;
   //      }
 
+    }
+
+    public void StopMovement()
+    {
+        isWalking = false;
+        isAttacking = false;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        patrol = false;
+        navMeshAgent.isStopped = true;
+    }
+
+    IEnumerator StopTime()
+    {
+        print(Time.time);
+        if(Time.time <15)
+            yield return new WaitForSeconds(5);
+        print(Time.time);
+
+        isWalking = true;
+        isAttacking = false;
+        navMeshAgent.isStopped = false;
     }
 }
